@@ -7,7 +7,7 @@ In its current state it **DOES NOT WORK**.
 
 ## Getting started
 
-See [example/] for a simple example application using WebCore.
+See [example/](example/) for a simple example application using WebCore.
 
 You can use the router to register routes like this:
 ```cpp
