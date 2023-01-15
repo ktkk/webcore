@@ -11,11 +11,17 @@ set(WEBCORE_VERSION_MINOR 1)
 
 set(SOURCES
     src/Router.cpp
+    src/Request.cpp
+    src/Response.cpp
+    src/App.cpp
 )
 
 set(HEADERS
     include/WebCore/WebCore.h
     include/WebCore/Router.h
+    include/WebCore/Request.h
+    include/WebCore/Response.h
+    include/WebCore/App.h
 )
 
 set(TESTS

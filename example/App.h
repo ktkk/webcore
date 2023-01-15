@@ -4,13 +4,13 @@
 
 #include <WebCore/WebCore.h>
 
-class App {
+class App final : public WebCore::App {
 public:
     App();
 
     void register_routes();
-    void handle_request(Request& req, Response& res);
+    void handle_request(WebCore::Request& req, WebCore::Response& res) override;
 
 private:
-    Router m_router;
+    WebCore::Router m_router;
 };
