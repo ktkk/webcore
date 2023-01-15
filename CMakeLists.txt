@@ -1,0 +1,57 @@
+cmake_minimum_required(VERSION 3.15)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_COMPILER "clang++")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+project(WebCore)
+
+set(WEBCORE_VERSION_MAJOR 0)
+set(WEBCORE_VERSION_MINOR 1)
+
+set(SOURCES
+    src/Router.cpp
+)
+
+set(HEADERS
+    include/WebCore/WebCore.h
+    include/WebCore/Router.h
+)
+
+set(TESTS
+    tests/Router_test.cpp
+)
+
+set(EXAMPLE
+    example/main.cpp
+    example/App.cpp
+)
+
+add_library(WebCore ${SOURCES} ${HEADERS})
+
+target_include_directories(WebCore
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+    INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+enable_testing()
+
+foreach(test_src ${TESTS})
+    get_filename_component(test_name ${test_src} NAME_WE)
+
+    add_executable(${test_name} ${test_src})
+    target_link_libraries(${test_name} WebCore)
+
+    add_test(
+        NAME
+            ${test_name}
+        COMMAND
+            ${test_name}
+    )
+endforeach()
+
+add_executable(example_WebCore ${EXAMPLE})
+target_link_libraries(example_WebCore WebCore)
