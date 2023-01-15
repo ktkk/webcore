@@ -10,15 +10,15 @@
 
 class Router {
 public:
-  void add_route(std::string method, std::string path,
-                 std::function<void(Request &, Response &)> callback);
-  void handle_request(Request &req, Response &res);
+    void add_route(std::string method, std::string path,
+        std::function<void(Request&, Response&)> callback);
+    void handle_request(Request& req, Response& res);
 
 private:
-  struct Route {
-    std::string method;
-    std::string path;
-    std::function<void(Request &, Response &)> callback;
-  };
-  std::vector<Route> m_routes;
+    struct Route {
+        std::string method;
+        std::string path;
+        std::function<void(Request&, Response&)> callback;
+    };
+    std::vector<Route> m_routes;
 };

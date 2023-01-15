@@ -6,11 +6,11 @@
 
 class App {
 public:
-  App();
+    App();
 
-  void register_routes();
-  void handle_request(Request &req, Response &res);
+    void register_routes();
+    void handle_request(Request& req, Response& res);
 
 private:
-  Router m_router;
+    Router m_router;
 };
