@@ -8,6 +8,8 @@
 #include "Request.h"
 #include "Response.h"
 
+namespace WebCore {
+
 class Router {
 public:
     void add_route(std::string method, std::string path,
@@ -22,3 +24,5 @@ private:
     };
     std::vector<Route> m_routes;
 };
+
+}

@@ -1,5 +1,7 @@
 #include <WebCore/Router.h>
 
+using namespace WebCore;
+
 void Router::add_route(std::string method, std::string path,
     std::function<void(Request&, Response&)> callback)
 {

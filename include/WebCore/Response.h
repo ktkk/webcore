@@ -4,6 +4,8 @@
 
 #include "HttpStatus.h"
 
+namespace WebCore {
+
 class Response {
 public:
     void set_status(HttpStatus status) { m_status = status; }
@@ -13,3 +15,5 @@ private:
     HttpStatus m_status;
     std::string m_body;
 };
+
+}

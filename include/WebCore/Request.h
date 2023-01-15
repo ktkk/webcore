@@ -3,6 +3,8 @@
 #include <map>
 #include <string>
 
+namespace WebCore {
+
 class Request {
 public:
     std::string get_method() { return m_method; }
@@ -14,3 +16,5 @@ private:
     std::string m_path;
     std::map<std::string, std::string> m_params;
 };
+
+}
