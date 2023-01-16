@@ -10,6 +10,7 @@ set(WEBCORE_VERSION_MAJOR 0)
 set(WEBCORE_VERSION_MINOR 1)
 
 set(SOURCES
+    src/HttpStatus.cpp
     src/Router.cpp
     src/Request.cpp
     src/Response.cpp
@@ -18,6 +19,7 @@ set(SOURCES
 
 set(HEADERS
     include/WebCore/WebCore.h
+    include/WebCore/HttpStatus.h
     include/WebCore/Router.h
     include/WebCore/Request.h
     include/WebCore/Response.h

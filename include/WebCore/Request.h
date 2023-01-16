@@ -7,6 +7,8 @@ namespace WebCore {
 
 class Request {
 public:
+    static Request parse_request(char buffer[]);
+
     std::string get_method() { return m_method; }
     std::string get_path() { return m_path; }
     std::map<std::string, std::string> get_params() { return m_params; }

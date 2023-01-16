@@ -1,6 +1,7 @@
 #include "App.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     auto app = App();
-    return app.start();
+    return app.start(8000);
 }
