@@ -13,7 +13,7 @@ You can use the router to register routes like this:
 ```cpp
 auto router = Router();
 
-router.add_route("GET", "/", [](Response& res, Reqeust& req) {
+router.add_route("GET", "/", [](Response& res, Request& req) {
     res.set_status(HttpStatus::Ok);
 });
 ```
