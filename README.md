@@ -1,6 +1,6 @@
 # WebCore
 
-## WARNING
+### WARNING
 
 This project is a concept and a work in progress!
 In its current state, only the most basic of requests work ("GET /").
@@ -17,3 +17,12 @@ router.add_route("GET", "/", [](Response& res, Request& req) {
     res.set_status(HttpStatus::Ok);
 });
 ```
+
+## Testing
+
+Tests are provided in the [tests/](tests/) directory.
+You can run them with ctest.
+
+### WARNING
+
+Tests are still a work in progress.
