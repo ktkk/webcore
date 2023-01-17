@@ -1,6 +1,5 @@
 #pragma once
 
-#include <map>
 #include <string>
 
 namespace WebCore {
@@ -18,11 +17,12 @@ public:
     explicit operator bool() const = delete;
 
     std::string get_method_string() const;
+    static HttpMethod from_method_string(std::string method_string);
 
 private:
     HttpMethodValue m_value;
 
-    static std::map<HttpMethodValue, std::string> m_method_strings;
+    static std::pair<HttpMethodValue, std::string> m_method_strings[];
 };
 
 enum HttpMethod::HttpMethodValue : int {
