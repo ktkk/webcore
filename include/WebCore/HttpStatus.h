@@ -1,6 +1,5 @@
 #pragma once
 
-#include <map>
 #include <string>
 
 namespace WebCore {
@@ -18,12 +17,14 @@ public:
     explicit operator bool() const = delete;
 
     constexpr int get_number() const { return (int)m_value; }
+
     std::string get_reason_phrase() const;
+    static HttpStatus from_reason_phrase(std::string reason_phrase);
 
 private:
     HttpStatusValue m_value;
 
-    static std::map<HttpStatusValue, std::string> m_reason_phrases;
+    static std::pair<HttpStatusValue, std::string> m_reason_phrases[];
 };
 
 enum HttpStatus::HttpStatusValue : int {
