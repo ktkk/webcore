@@ -23,7 +23,7 @@ public:
 private:
     HttpStatusValue m_value;
 
-    static std::map<HttpStatus::HttpStatusValue, std::string> m_reason_phrases;
+    static std::map<HttpStatusValue, std::string> m_reason_phrases;
 };
 
 enum HttpStatus::HttpStatusValue : int {
