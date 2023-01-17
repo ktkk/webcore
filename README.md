@@ -3,7 +3,7 @@
 ## WARNING
 
 This project is a concept and a work in progress!
-In its current state it **DOES NOT WORK**.
+In its current state, only the most basic of requests work ("GET /").
 
 ## Getting started
 
