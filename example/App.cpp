@@ -1,5 +1,7 @@
 #include "App.h"
 
+#include <iostream>
+
 App::App()
     : m_router()
 {
@@ -12,6 +14,12 @@ void App::register_routes()
     using WebCore::HttpStatus;
 
     m_router.add_route(HttpMethod::Get, "/", [](auto& req, auto& res) {
+        std::cout << "Made a GET request to the '/' endpoint." << std::endl;
+
+        std::string body = "<style>h1 { color: pink; font-family: cursive; }</style>\n"
+                           "<h1>Hello, World!</h1>\n";
+
+        res.set_body(body);
         res.set_status(HttpStatus::Ok);
     });
 
