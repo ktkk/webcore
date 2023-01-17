@@ -2,7 +2,7 @@
 
 using namespace WebCore;
 
-void Router::add_route(std::string method, std::string path,
+void Router::add_route(HttpMethod method, std::string path,
     std::function<void(Request&, Response&)> callback)
 {
     m_routes.push_back({ method, path, callback });

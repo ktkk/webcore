@@ -8,11 +8,14 @@ App::App()
 
 void App::register_routes()
 {
-    m_router.add_route("GET", "/", [](WebCore::Request& req, WebCore::Response& res) {
-        res.set_status(WebCore::HttpStatus::Ok);
+    using WebCore::HttpMethod;
+    using WebCore::HttpStatus;
+
+    m_router.add_route(HttpMethod::Get, "/", [](auto& req, auto& res) {
+        res.set_status(HttpStatus::Ok);
     });
 
-    m_router.add_route("GET", "/users/:id", [](WebCore::Request& req, WebCore::Response& res) {
+    m_router.add_route(HttpMethod::Get, "/users/:id", [](auto& req, auto& res) {
         auto params = req.get_params();
         std::string id = params["id"];
 
