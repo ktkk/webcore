@@ -9,13 +9,16 @@ namespace WebCore {
 
 class Request {
 public:
-    static Request parse_request(char buffer[]);
+    static Request parse_request(char buffer[], long buffer_length);
 
     HttpMethod get_method() { return m_method; }
     std::string get_path() { return m_path; }
     std::map<std::string, std::string> get_params() { return m_params; }
 
 private:
+    void set_method(HttpMethod method) { m_method = method; }
+    void set_path(std::string path) { m_path = path; }
+
     HttpMethod m_method = HttpMethod::Get;
     std::string m_path = "";
     std::map<std::string, std::string> m_params {};

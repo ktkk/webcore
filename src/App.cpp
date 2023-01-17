@@ -72,12 +72,12 @@ int App::start(int port)
 
         buffer[buffer_length] = '\0';
 
-        Request req { Request::parse_request(buffer) };
+        Request req { Request::parse_request(buffer, buffer_length) };
         Response res;
 
         handle_request(req, res);
 
-        std::cout << res.to_string();
+        // std::cout << res.to_string();
 
         write(
             client_file_descriptor,
