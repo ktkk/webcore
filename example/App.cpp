@@ -1,5 +1,6 @@
 #include "App.h"
 
+#include <fstream>
 #include <iostream>
 
 App::App()
@@ -16,8 +17,9 @@ void App::register_routes()
     m_router.add_route(HttpMethod::Get, "/", [](auto& req, auto& res) {
         std::cout << "Made a GET request to the '/' endpoint." << std::endl;
 
-        std::string body = "<style>h1 { color: pink; font-family: cursive; }</style>\n"
-                           "<h1>Hello, World!</h1>\n";
+        // Assume we're running inside the build/ directory
+        std::ifstream file_stream { "../example/index.html" };
+        std::string body { std::istreambuf_iterator<char> { file_stream }, std::istreambuf_iterator<char> {} };
 
         res.set_body(body);
         res.set_status(HttpStatus::Ok);
