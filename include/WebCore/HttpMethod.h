@@ -35,6 +35,7 @@ enum HttpMethod::HttpMethodValue : int {
     Options,
     Trace,
     Patch,
+    NonStandard,
 };
 
 }

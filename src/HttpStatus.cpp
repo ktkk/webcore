@@ -6,7 +6,7 @@ using namespace WebCore;
 
 std::pair<HttpStatus::HttpStatusValue, std::string> HttpStatus::m_reason_phrases[] {
     { HttpStatus::Ok, "OK" },
-    { HttpStatus::NotFound, "NOT FOUND" },
+    { HttpStatus::NotFound, "Not Found" },
 };
 
 std::string
@@ -18,7 +18,6 @@ HttpStatus::get_reason_phrase() const
         }
     }
 
-    std::cerr << "Unreachable";
     return "";
 }
 

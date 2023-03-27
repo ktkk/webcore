@@ -24,7 +24,6 @@ std::string HttpMethod::get_method_string() const
         }
     }
 
-    std::cerr << "Unreachable";
     return "";
 }
 
@@ -36,6 +35,5 @@ HttpMethod HttpMethod::from_method_string(std::string method_string)
         }
     }
 
-    std::cerr << "Unreachable";
-    return HttpMethod::Get;
+    return HttpMethod::NonStandard;
 }
