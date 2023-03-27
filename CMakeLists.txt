@@ -16,6 +16,7 @@ set(SOURCES
     src/Request.cpp
     src/Response.cpp
     src/App.cpp
+    src/Logger.cpp
 )
 
 set(HEADERS
@@ -26,6 +27,7 @@ set(HEADERS
     include/WebCore/Request.h
     include/WebCore/Response.h
     include/WebCore/App.h
+    include/WebCore/Utils/Logger.h
 )
 
 set(TESTS
