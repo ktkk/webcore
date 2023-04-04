@@ -12,6 +12,14 @@ void Router::handle_request(Request& req, Response& res)
 {
     for (auto& route : m_routes) {
         if (route.method == req.get_method() && route.path == req.get_path()) {
+            if (m_logger.has_value()) {
+                std::stringstream log;
+                log << "Serving request ";
+                log << route.method << ", " << route.path;
+                log << std::endl;
+                m_logger.info(log.rdbuf());
+            }
+
             route.callback(req, res);
 
             return;

@@ -17,6 +17,7 @@ void App::register_routes()
     using WebCore::Utils::Logger;
 
     auto logger = Logger();
+    m_router.set_logger(logger);
 
     m_router.add_route(HttpMethod::Get, "/", [&logger](auto& req, auto& res) {
         logger.info("Made a GET request to the '/' endpoint.");

@@ -1,8 +1,10 @@
 #pragma once
 
 #include <functional>
+#include <optional>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "HttpMethod.h"
 #include "HttpStatus.h"
@@ -17,6 +19,8 @@ public:
         std::function<void(Request&, Response&)> callback);
     void handle_request(Request& req, Response& res);
 
+    void set_logger(Logger& logger) { m_logger.emplace(logger); }
+
 private:
     struct Route {
         HttpMethod method;
@@ -24,6 +28,8 @@ private:
         std::function<void(Request&, Response&)> callback;
     };
     std::vector<Route> m_routes;
+
+    std::optional<std::reference_wrapper<Logger>> m_logger = {};
 };
 
 }
