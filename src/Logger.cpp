@@ -12,10 +12,13 @@ using namespace Utils;
 #define BRACED(text) "[" << text << "]"
 #define COLORED(color, text) "\033[" << std::to_string((int)color) << "m" << text << "\033[0m"
 
+#define PREFIX(color, prefix, date) BRACED(COLORED(color, prefix) << " " << date)
+
 void Logger::info(Logger::Message message)
 {
     std::stringstream full_message;
-    full_message << BRACED(COLORED(m_info_color, "INFO") << " " << get_current_time_localized()) << " " << message;
+    full_message << PREFIX(m_info_color, "INFO", get_current_time_localized());
+    full_message << " " << message;
 
     m_info_outstream << full_message.rdbuf() << std::endl;
 }
@@ -23,7 +26,8 @@ void Logger::info(Logger::Message message)
 void Logger::warn(Logger::Message message, int severity)
 {
     std::stringstream full_message;
-    full_message << BRACED(COLORED(m_warn_color, "WARN") << " " << get_current_time_localized()) << " " << message;
+    full_message << PREFIX(m_warn_color, "WARN", get_current_time_localized());
+    full_message << " " << message;
 
     m_warn_outstream << full_message.rdbuf() << std::endl;
 }
@@ -31,7 +35,8 @@ void Logger::warn(Logger::Message message, int severity)
 void Logger::error(Logger::Message message, int severity)
 {
     std::stringstream full_message;
-    full_message << BRACED(COLORED(m_error_color, "ERROR") << " " << get_current_time_localized()) << " " << message;
+    full_message << PREFIX(m_error_color, "ERROR", get_current_time_localized());
+    full_message << " " << message;
 
     m_error_outstream << full_message.rdbuf() << std::endl;
 }
