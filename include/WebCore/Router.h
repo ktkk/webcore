@@ -1,15 +1,17 @@
 #pragma once
 
 #include <functional>
-#include <optional>
-#include <string>
-#include <vector>
 #include <iostream>
+#include <optional>
+#include <sstream>
+#include <vector>
 
 #include "HttpMethod.h"
 #include "HttpStatus.h"
 #include "Request.h"
 #include "Response.h"
+
+#include "Utils/Logger.h"
 
 namespace WebCore {
 
@@ -19,7 +21,7 @@ public:
         std::function<void(Request&, Response&)> callback);
     void handle_request(Request& req, Response& res);
 
-    void set_logger(Logger& logger) { m_logger.emplace(logger); }
+    void set_logger(Utils::Logger& logger) { m_logger.emplace(logger); }
 
 private:
     struct Route {
@@ -29,7 +31,7 @@ private:
     };
     std::vector<Route> m_routes;
 
-    std::optional<std::reference_wrapper<Logger>> m_logger = {};
+    std::optional<std::reference_wrapper<Utils::Logger>> m_logger = {};
 };
 
 }

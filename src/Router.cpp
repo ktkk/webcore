@@ -16,8 +16,7 @@ void Router::handle_request(Request& req, Response& res)
                 std::stringstream log;
                 log << "Serving request ";
                 log << route.method << ", " << route.path;
-                log << std::endl;
-                m_logger.info(log.rdbuf());
+                m_logger->get().info(log.str());
             }
 
             route.callback(req, res);

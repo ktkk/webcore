@@ -1,5 +1,6 @@
 #pragma once
 
+#include "WebCore/Utils/Logger.h"
 #include <string>
 
 #include <WebCore/WebCore.h>
@@ -13,4 +14,5 @@ public:
 
 private:
     WebCore::Router m_router;
+    WebCore::Utils::Logger m_logger;
 };

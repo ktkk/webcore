@@ -5,8 +5,11 @@
 
 App::App()
     : m_router()
+    , m_logger()
 {
     register_routes();
+
+    set_logger(m_logger);
 }
 
 void App::register_routes()
@@ -16,11 +19,10 @@ void App::register_routes()
 
     using WebCore::Utils::Logger;
 
-    auto logger = Logger();
-    m_router.set_logger(logger);
+    m_router.set_logger(m_logger);
 
-    m_router.add_route(HttpMethod::Get, "/", [&logger](auto& req, auto& res) {
-        logger.info("Made a GET request to the '/' endpoint.");
+    m_router.add_route(HttpMethod::Get, "/", [this](auto& req, auto& res) {
+        m_logger.info("Made a GET request to the '/' endpoint.");
 
         // Assume we're running inside the build/ directory
         std::ifstream file_stream { "../example/index.html" };
@@ -30,8 +32,8 @@ void App::register_routes()
         res.set_status(HttpStatus::Ok);
     });
 
-    m_router.add_route(HttpMethod::Get, "/users/:id", [&logger](auto& req, auto& res) {
-        logger.warn("Query paramters aren't properly implemented yet.");
+    m_router.add_route(HttpMethod::Get, "/users/:id", [this](auto& req, auto& res) {
+        m_logger.warn("Query paramters aren't properly implemented yet.");
 
         auto params = req.get_params();
         std::string id = params["id"];

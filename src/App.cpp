@@ -50,6 +50,8 @@ int App::start(int port)
         return 1;
     }
 
+    m_logger->get().info("Listening on port %d");
+
     // Main connection loop
     while (true) {
         SocketAddressIPv4 peer_address;
