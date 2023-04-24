@@ -1,16 +1,10 @@
 #include <WebCore/App.h>
 
-#include <iostream>
-
 using namespace WebCore;
 
 using SocketAddress = struct sockaddr;
 using SocketAddressIPv4 = struct sockaddr_in;
 using InAddress = in_addr;
-
-// TODO: Logging
-// TODO: Configuration type
-// TODO: Error types
 
 int App::start(int port)
 {

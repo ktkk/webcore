@@ -6,8 +6,6 @@
 
 using namespace WebCore;
 
-// TODO: Create a cmake config header that defines macros for version
-
 std::string Response::to_string()
 {
     std::string server = "WebCore v0.1";
