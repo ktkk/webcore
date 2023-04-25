@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_COMPILER "clang++")
+if(LINUX)
+    set(CMAKE_CXX_COMPILER "clang++")
+endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(WebCore)
@@ -48,6 +50,13 @@ target_include_directories(WebCore
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
+
+if(WIN32)
+    target_link_libraries(WebCore
+        wsock32
+        ws2_32
+)
+endif()
 
 enable_testing()
 
