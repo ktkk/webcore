@@ -38,4 +38,14 @@ enum HttpMethod::HttpMethodValue : int {
     NonStandard,
 };
 
+#define GET HttpMethod::Get
+#define HEAD HttpMethod::Head
+#define POST HttpMethod::Post
+#define PUT HttpMethod::Put
+#define DELETE HttpMethod::Delete
+#define CONNECT HttpMethod::Connect
+#define OPTIONS HttpMethod::Options
+#define TRACE HttpMethod::Trace
+#define PATCH HttpMethod::Patch
+
 }
