@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include <WebCore/Router.h>
 
 using namespace WebCore;

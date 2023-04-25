@@ -1,5 +1,6 @@
 #include <WebCore/Utils/Logger.h>
 
+#include <ctime>
 #include <clocale>
 #include <iostream>
 #include <locale>

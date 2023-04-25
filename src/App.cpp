@@ -1,3 +1,21 @@
+#if defined(linux)
+
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <asm-generic/socket.h>
+
+#endif
+
+#if defined(_WIN32) || defined(WIN32)
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
+#endif
+
 #include <WebCore/App.h>
 
 using namespace WebCore;
