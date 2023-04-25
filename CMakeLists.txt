@@ -53,10 +53,17 @@ target_include_directories(WebCore
 
 if(WIN32)
     target_link_libraries(WebCore
-        wsock32
-        ws2_32
-)
+        PRIVATE
+            wsock32
+            ws2_32
+    )
 endif()
+
+target_compile_options(WebCore
+PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror>
+)
 
 enable_testing()
 
