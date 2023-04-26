@@ -2,9 +2,34 @@
 
 #include <iostream>
 
+#if defined(linux)
+
+#include <asm-generic/socket.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#endif
+
+#if defined(_WIN32) || defined(WIN32)
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
+#endif
+
 #define CRLF "\r\n"
 
 using namespace WebCore;
+
+void Response::flush()
+{
+    send(m_client_socket, m_buffer.c_str(), m_buffer.size(), 0);
+
+    m_buffer.clear();
+}
 
 std::string Response::to_string()
 {
@@ -14,11 +39,6 @@ std::string Response::to_string()
 
     response += "HTTP/1.1 ";
     response += std::to_string(m_status.get_number()) + " " + m_status.get_reason_phrase() + CRLF;
-    response += "Server: " + server + CRLF;
-    response += "Content-Type: " + m_type + CRLF;
-
-    response += CRLF;
-    response += m_body + CRLF;
 
     return response;
 }

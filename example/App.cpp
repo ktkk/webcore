@@ -28,7 +28,7 @@ void App::register_routes()
         std::ifstream file_stream { "../example/index.html" };
         std::string body { std::istreambuf_iterator<char> { file_stream }, std::istreambuf_iterator<char> {} };
 
-        res.set_body(body);
+        res.write(body);
         res.set_status(HttpStatus::Ok);
     });
 
@@ -38,7 +38,7 @@ void App::register_routes()
         auto params = req.get_params();
         std::string id = params["id"];
 
-        res.set_body("User ID: " + id);
+        res.write("User ID: " + id);
     });
 }
 

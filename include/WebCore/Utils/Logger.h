@@ -31,8 +31,8 @@ public:
     void set_error_color(TermColor color = TermColor::Red) { m_error_color = color; }
 
 private:
-    bool m_colors_enabled = true;
-    bool m_colors_muted = false;
+    //bool m_colors_enabled = true;
+    //bool m_colors_muted = false;
 
     std::string m_locale = "en_US.utf-8";
 

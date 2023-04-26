@@ -127,7 +127,9 @@ int App::start_linux(const int port)
         buffer[buffer_length] = '\0';
 
         Request req = Request::parse_request(buffer, buffer_length);
-        Response res;
+
+        auto res = Response();
+        res.set_client_socket(client_file_descriptor);
 
         handle_request(req, res);
 
@@ -229,7 +231,10 @@ int App::start_windows(const int port)
         buffer[buffer_length] = '\0';
 
         Request req = Request::parse_request(buffer, buffer_length);
-        Response res;
+
+        auto res = Response();
+        res.set_client_socket(client_socket);
+
 
         handle_request(req, res);
 

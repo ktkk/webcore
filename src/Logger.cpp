@@ -26,6 +26,8 @@ void Logger::info(Logger::Message message)
 
 void Logger::warn(Logger::Message message, int severity)
 {
+    (void)severity;
+
     std::stringstream full_message;
     full_message << PREFIX(m_warn_color, "WARN", get_current_time_localized());
     full_message << " " << message;
@@ -35,6 +37,8 @@ void Logger::warn(Logger::Message message, int severity)
 
 void Logger::error(Logger::Message message, int severity)
 {
+    (void)severity;
+
     std::stringstream full_message;
     full_message << PREFIX(m_error_color, "ERROR", get_current_time_localized());
     full_message << " " << message;

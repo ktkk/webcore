@@ -28,5 +28,5 @@ void Router::handle_request(Request& req, Response& res)
     }
 
     res.set_status(HttpStatus::NotFound);
-    res.set_body("WebCore v0.1\nPage not found :(");
+    res.write("WebCore v0.1\nPage not found :(");
 }
