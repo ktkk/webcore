@@ -1,6 +1,12 @@
-#define INCLUDE_SOCKET_HEADERS
 #include "Common.h"
-#undef INCLUDE_SOCKET_HEADERS
+
+#if defined(linux)
+#include <sys/socket.h>
+#endif // defined(linux)
+
+#if defined(_WIN32) || defined(WIN32)
+#include <winsock2.h>
+#endif // defined(_WIN32) || defined(WIN32)
 
 #include <WebCore/Response.h>
 
