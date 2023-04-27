@@ -1,6 +1,6 @@
-#include <WebCore/HttpMethod.h>
+#include "Common.h"
 
-#include <iostream>
+#include <WebCore/HttpMethod.h>
 
 using namespace WebCore;
 

@@ -1,11 +1,10 @@
-#include <WebCore/Utils/Logger.h>
+#include "Common.h"
 
 #include <ctime>
 #include <clocale>
-#include <iostream>
 #include <locale>
-#include <sstream>
-#include <string>
+
+#include <WebCore/Utils/Logger.h>
 
 using namespace WebCore;
 using namespace Utils;

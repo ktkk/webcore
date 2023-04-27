@@ -1,6 +1,6 @@
-#include <WebCore/HttpStatus.h>
+#include "Common.h"
 
-#include <iostream>
+#include <WebCore/HttpStatus.h>
 
 using namespace WebCore;
 

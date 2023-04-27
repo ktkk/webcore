@@ -51,6 +51,11 @@ target_include_directories(WebCore
         $<INSTALL_INTERFACE:include>
 )
 
+target_precompile_headers(WebCore
+    PRIVATE
+        src/Common.h
+)
+
 if(WIN32)
     target_link_libraries(WebCore
         PRIVATE

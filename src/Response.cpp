@@ -1,24 +1,7 @@
+#define INCLUDE_SOCKET_HEADERS
+#include "Common.h"
+
 #include <WebCore/Response.h>
-
-#include <iostream>
-
-#if defined(linux)
-
-#include <asm-generic/socket.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#endif
-
-#if defined(_WIN32) || defined(WIN32)
-
-#include <winsock2.h>
-#include <ws2tcpip.h>
-
-#endif
 
 #define CRLF "\r\n"
 

@@ -1,8 +1,6 @@
-#include <WebCore/Request.h>
+#include "Common.h"
 
-#include <cstring>
-#include <iostream>
-#include <sstream>
+#include <WebCore/Request.h>
 
 using namespace WebCore;
 
