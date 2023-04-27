@@ -64,17 +64,15 @@ int App::start_linux(const int port)
 
     InAddress in_address { htonl(INADDR_ANY) };
 
-    SocketAddressIPv4 server_address {
-        .sin_family = AF_INET,
-        .sin_port = htons(port),
-        .sin_addr = in_address,
-    };
+    SocketAddressIPv4 server_address = { 0 };
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(port);
+    server_address.sin_addr = in_address;
 
     if (bind(
             socket_file_descriptor,
             (SocketAddress*)&server_address,
-            sizeof(server_address))
-        != 0) {
+            sizeof(server_address)) != 0) {
         if (m_logger) {
             m_logger->get().error("Binding socket failed");
         }
@@ -173,17 +171,15 @@ int App::start_windows(const int port)
 
     InAddress in_address { htonl(INADDR_ANY) };
 
-    SocketAddressIPv4 server_address {
-        .sin_family = AF_INET,
-        .sin_port = htons(port),
-        .sin_addr = in_address,
-    };
+    SocketAddressIPv4 server_address = { 0 };
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(port);
+    server_address.sin_addr = in_address;
 
     if (bind(
-        server_socket,
-        (SocketAddress*)&server_address,
-        sizeof(server_address))
-    == SOCKET_ERROR) {
+            server_socket,
+            (SocketAddress*)&server_address,
+            sizeof(server_address)) == SOCKET_ERROR) {
         if (m_logger) {
             m_logger->get().error("Binding socket failed"); // WSAGetLastError();
         }
