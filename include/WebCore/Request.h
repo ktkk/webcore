@@ -11,9 +11,9 @@ class Request {
 public:
     static Request parse_request(char buffer[], long buffer_length);
 
-    HttpMethod get_method() { return m_method; }
-    std::string get_path() { return m_path; }
-    std::map<std::string, std::string> get_params() { return m_params; }
+    HttpMethod get_method() const { return m_method; }
+    std::string get_path() const { return m_path; }
+    std::map<std::string, std::string> get_params() const { return m_params; }
 
 private:
     void set_method(HttpMethod method) { m_method = method; }

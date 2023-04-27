@@ -13,11 +13,12 @@
 
 namespace WebCore {
 
+using Callback = std::function<void(const Request&, Response&)>;
+
 class Router {
 public:
-    void add_route(HttpMethod method, std::string path,
-        std::function<void(Request&, Response&)> callback);
-    void handle_request(Request& req, Response& res);
+    void add_route(HttpMethod method, std::string path, Callback callback);
+    void handle_request(const Request& req, Response& res);
 
     void set_logger(Utils::Logger& logger) { m_logger.emplace(logger); }
 
@@ -25,7 +26,7 @@ private:
     struct Route {
         HttpMethod method;
         std::string path;
-        std::function<void(Request&, Response&)> callback;
+        Callback callback;
     };
     std::vector<Route> m_routes;
 
