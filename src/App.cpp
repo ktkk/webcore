@@ -1,5 +1,6 @@
 #define INCLUDE_SOCKET_HEADERS
 #include "Common.h"
+#undef INCLUDE_SOCKET_HEADERS
 
 #include <WebCore/App.h>
 
