@@ -25,6 +25,7 @@ set(HEADERS
     include/WebCore/WebCore.h
     include/WebCore/HttpStatus.h
     include/WebCore/HttpMethod.h
+    include/WebCore/HttpHeader.h
     include/WebCore/Router.h
     include/WebCore/Request.h
     include/WebCore/Response.h
