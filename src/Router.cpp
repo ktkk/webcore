@@ -5,19 +5,20 @@
 using namespace WebCore;
 
 void Router::add_route(HttpMethod method, std::string path,
-    std::function<void(Request&, Response&)> callback)
+    Callback callback)
 {
     m_routes.push_back({ method, path, callback });
 }
 
-void Router::handle_request(Request& req, Response& res)
+void Router::handle_request(const Request& req, Response& res)
 {
     for (auto& route : m_routes) {
         if (route.method == req.get_method() && route.path == req.get_path()) {
-            if (m_logger.has_value()) {
+            if (m_logger) {
                 std::stringstream log;
                 log << "Serving request ";
                 log << route.method << ", " << route.path;
+
                 m_logger->get().info(log.str());
             }
 

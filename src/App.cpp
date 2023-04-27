@@ -133,10 +133,11 @@ int App::start_linux(const int port)
 
         // std::cout << res.to_string();
 
-        write(
+        send(
             client_file_descriptor,
             res.to_string().c_str(),
-            res.to_string().size());
+            res.to_string().size(),
+            0);
 
         close(client_file_descriptor);
     }
