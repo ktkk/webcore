@@ -1,12 +1,12 @@
 #include "Common.h"
 
 #if defined(linux)
+#include <asm-generic/socket.h>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <asm-generic/socket.h>
 #endif // defined(linux)
 
 #if defined(_WIN32) || defined(WIN32)
@@ -64,15 +64,17 @@ int App::start_linux(const int port)
 
     InAddress in_address { htonl(INADDR_ANY) };
 
-    SocketAddressIPv4 server_address = { 0 };
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(port);
-    server_address.sin_addr = in_address;
+    SocketAddressIPv4 server_address {
+        .sin_family = AF_INET,
+        .sin_port = htons(port),
+        .sin_addr = in_address,
+    };
 
     if (bind(
             socket_file_descriptor,
             (SocketAddress*)&server_address,
-            sizeof(server_address)) != 0) {
+            sizeof(server_address))
+        != 0) {
         if (m_logger) {
             m_logger->get().error("Binding socket failed");
         }
@@ -179,7 +181,8 @@ int App::start_windows(const int port)
     if (bind(
             server_socket,
             (SocketAddress*)&server_address,
-            sizeof(server_address)) == SOCKET_ERROR) {
+            sizeof(server_address))
+        == SOCKET_ERROR) {
         if (m_logger) {
             m_logger->get().error("Binding socket failed"); // WSAGetLastError();
         }
@@ -228,7 +231,6 @@ int App::start_windows(const int port)
 
         auto res = Response();
         res.set_client_socket(client_socket);
-
 
         handle_request(req, res);
 
