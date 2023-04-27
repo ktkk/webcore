@@ -10,9 +10,10 @@ using namespace WebCore;
 using namespace Utils;
 
 #define BRACED(text) "[" << text << "]"
-#define COLORED(color, text) "\033[" << std::to_string((int)color) << "m" << text << "\033[0m"
+#define COLORED(color, text) "\033[" << std::to_string((int)color) << "m" << text << "\033[39m"
+#define BOLD(text) "\033[1m" << text << "\033[0m"
 
-#define PREFIX(color, prefix, date) BRACED(COLORED(color, prefix) << " " << date)
+#define PREFIX(color, prefix, date) BOLD(BRACED(COLORED(color, prefix) << " " << date))
 
 void Logger::info(Logger::Message message)
 {
