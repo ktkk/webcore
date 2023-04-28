@@ -8,7 +8,7 @@ class HttpStatus {
 public:
     enum HttpStatusValue : int;
 
-    constexpr HttpStatus(HttpStatusValue value)
+    constexpr HttpStatus(const HttpStatusValue& value)
         : m_value(value)
     {
     }

@@ -10,21 +10,22 @@ namespace WebCore {
 
 class App {
 public:
-    virtual void handle_request(Request& req, Response& res) = 0;
+    virtual void handle_request(const Request& req, Response& res) = 0;
 
-    int start(const int port);
+    int start(const unsigned short port);
 
     void set_logger(Utils::Logger& logger) { m_logger.emplace(logger); }
 
 private:
-    std::optional<std::reference_wrapper<Utils::Logger>> m_logger = {};
-
 #if defined(linux)
-    int start_linux(const int port);
+    int start_linux(const unsigned short port);
 #endif
 #if defined(_WIN32) || defined(WIN32)
-    int start_windows(const int port);
+    int start_windows(const unsigned short port);
 #endif
+
+private:
+    std::optional<std::reference_wrapper<Utils::Logger>> m_logger = {};
 };
 
 }

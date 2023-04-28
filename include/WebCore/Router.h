@@ -17,7 +17,7 @@ using Callback = std::function<void(const Request&, Response&)>;
 
 class Router {
 public:
-    void add_route(HttpMethod method, std::string path, Callback callback);
+    void add_route(const HttpMethod& method, const std::string& path, const Callback& callback);
     void handle_request(const Request& req, Response& res);
 
     void set_logger(Utils::Logger& logger) { m_logger.emplace(logger); }
@@ -28,7 +28,9 @@ private:
         std::string path;
         Callback callback;
     };
-    std::vector<Route> m_routes;
+
+private:
+    std::vector<Route> m_routes = {};
 
     std::optional<std::reference_wrapper<Utils::Logger>> m_logger = {};
 };

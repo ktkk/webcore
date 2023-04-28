@@ -10,7 +10,7 @@ public:
     App();
 
     void register_routes();
-    void handle_request(WebCore::Request& req, WebCore::Response& res) override;
+    void handle_request(const WebCore::Request& req, WebCore::Response& res) override;
 
 private:
     WebCore::Router m_router;

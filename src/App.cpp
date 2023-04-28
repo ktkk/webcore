@@ -14,15 +14,19 @@
 #include <ws2tcpip.h>
 #endif // defined(_WIN32) || defined(WIN32)
 
+#include <cassert>
+
 #include <WebCore/App.h>
 
 using namespace WebCore;
 
+static constexpr auto BUFFER_SIZE = 4096;
+
 using SocketAddress = struct sockaddr;
 using SocketAddressIPv4 = struct sockaddr_in;
-using InAddress = in_addr;
+using InAddress = struct in_addr;
 
-int App::start(const int port)
+int App::start(const unsigned short port)
 {
 #if defined(linux)
     return start_linux(port);
@@ -35,9 +39,9 @@ int App::start(const int port)
 
 #if defined(linux)
 
-int App::start_linux(const int port)
+int App::start_linux(const unsigned short port)
 {
-    int socket_file_descriptor { socket(AF_INET, SOCK_STREAM, 0) };
+    const int socket_file_descriptor { socket(AF_INET, SOCK_STREAM, 0) };
 
     if (socket_file_descriptor < 0) {
         if (m_logger) {
@@ -47,7 +51,7 @@ int App::start_linux(const int port)
         return 1;
     }
 
-    int opt = 1;
+    const int opt = 1;
     if (setsockopt(
             socket_file_descriptor,
             SOL_SOCKET,
@@ -62,7 +66,7 @@ int App::start_linux(const int port)
         return 1;
     }
 
-    InAddress in_address { htonl(INADDR_ANY) };
+    const InAddress in_address { htonl(INADDR_ANY) };
 
     SocketAddressIPv4 server_address {
         .sin_family = AF_INET,
@@ -99,12 +103,10 @@ int App::start_linux(const int port)
         SocketAddressIPv4 peer_address;
         unsigned int peer_address_length { sizeof(peer_address) };
 
-        int client_file_descriptor {
-            accept(
-                socket_file_descriptor,
-                (SocketAddress*)&peer_address,
-                &peer_address_length)
-        };
+        const int client_file_descriptor = accept(
+            socket_file_descriptor,
+            (SocketAddress*)&peer_address,
+            &peer_address_length);
 
         if (client_file_descriptor < 0) {
             if (m_logger) {
@@ -114,24 +116,21 @@ int App::start_linux(const int port)
             return 1;
         }
 
-        char buffer[4096];
-        long buffer_length {
-            read(
-                client_file_descriptor,
-                buffer,
-                sizeof(buffer))
-        };
+        char buffer[BUFFER_SIZE];
+        const long buffer_length = read(
+            client_file_descriptor,
+            buffer,
+            sizeof(buffer));
+        assert(buffer_length < BUFFER_SIZE);
 
         buffer[buffer_length] = '\0';
 
-        Request req = Request::parse_request(buffer, buffer_length);
-
+        const auto req = Request::parse_request(buffer, buffer_length);
         auto res = Response();
+
         res.set_client_socket(client_file_descriptor);
 
         handle_request(req, res);
-
-        // std::cout << res.to_string();
 
         send(
             client_file_descriptor,
@@ -149,10 +148,10 @@ int App::start_linux(const int port)
 
 #if defined(_WIN32) || defined(WIN32)
 
-int App::start_windows(const int port)
+int App::start_windows(const unsigned short port)
 {
     WSADATA wsa_data;
-    int result = WSAStartup(MAKEWORD(2, 2), &wsa_data);
+    const int result = WSAStartup(MAKEWORD(2, 2), &wsa_data);
     if (result != 0) {
         if (m_logger) {
             m_logger->get().error("WSAStartup failed");
@@ -161,7 +160,7 @@ int App::start_windows(const int port)
         return 1;
     }
 
-    SOCKET server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    const SOCKET server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (server_socket == INVALID_SOCKET) {
         if (m_logger) {
             m_logger->get().error("Failed to create socket"); // WSAGetLastError();
@@ -172,7 +171,7 @@ int App::start_windows(const int port)
         return 1;
     }
 
-    InAddress in_address { htonl(INADDR_ANY) };
+    const InAddress in_address { static_cast<UCHAR>(htonl(INADDR_ANY)) };
 
     SocketAddressIPv4 server_address = { 0 };
     server_address.sin_family = AF_INET;
@@ -211,7 +210,7 @@ int App::start_windows(const int port)
 
     // Main connection loop
     while (true) {
-        SOCKET client_socket = accept(server_socket, NULL, NULL);
+        const SOCKET client_socket = accept(server_socket, NULL, NULL);
         if (client_socket == INVALID_SOCKET) {
             if (m_logger) {
                 m_logger->get().error("Accept failed"); // WSAGetLastError();
@@ -223,14 +222,15 @@ int App::start_windows(const int port)
             return 1;
         }
 
-        char buffer[4096];
+        char buffer[BUFFER_SIZE];
         long buffer_length = recv(client_socket, buffer, sizeof(buffer), 0);
+        assert(buffer_length < BUFFER_SIZE);
 
         buffer[buffer_length] = '\0';
 
-        Request req = Request::parse_request(buffer, buffer_length);
-
+        const auto req = Request::parse_request(buffer, buffer_length);
         auto res = Response();
+
         res.set_client_socket(client_socket);
 
         handle_request(req, res);
@@ -238,7 +238,7 @@ int App::start_windows(const int port)
         send(
             client_socket,
             res.to_string().c_str(),
-            res.to_string().size(),
+            static_cast<int>(res.to_string().size()),
             0);
 
         closesocket(client_socket);

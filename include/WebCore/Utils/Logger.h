@@ -9,12 +9,6 @@ namespace Utils {
 
 class Logger {
 public:
-    using Message = std::string;
-
-    void info(Message message);
-    void warn(Message message, int severity = 1);
-    void error(Message message, int severity = 2);
-
     enum class TermColor : int {
         Black = 30,
         Red = 31,
@@ -26,9 +20,19 @@ public:
         White = 37,
     };
 
+    using Message = std::string;
+
+public:
+
+    void info(const Message& message) const;
+    void warn(const Message& message, int severity = 1) const;
+    void error(const Message& message, int severity = 2) const;
+
     void set_info_color(TermColor color = TermColor::LightBlue) { m_info_color = color; }
     void set_warn_color(TermColor color = TermColor::Yellow) { m_warn_color = color; }
     void set_error_color(TermColor color = TermColor::Red) { m_error_color = color; }
+    
+    void set_locale(const std::string& locale) { m_locale = locale; }
 
 private:
     //bool m_colors_enabled = true;
@@ -43,8 +47,6 @@ private:
     std::ostream& m_info_outstream = std::clog;
     std::ostream& m_warn_outstream = std::cerr;
     std::ostream& m_error_outstream = std::cerr;
-
-    std::string get_current_time_localized();
 };
 
 }

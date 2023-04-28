@@ -8,7 +8,8 @@ class HttpMethod {
 public:
     enum HttpMethodValue : int;
 
-    constexpr HttpMethod(HttpMethodValue value)
+public:
+    constexpr HttpMethod(const HttpMethodValue& value)
         : m_value(value)
     {
     }
@@ -38,14 +39,16 @@ enum HttpMethod::HttpMethodValue : int {
     NonStandard,
 };
 
-#define GET HttpMethod::Get
-#define HEAD HttpMethod::Head
-#define POST HttpMethod::Post
-#define PUT HttpMethod::Put
-#define DELETE HttpMethod::Delete
-#define CONNECT HttpMethod::Connect
-#define OPTIONS HttpMethod::Options
-#define TRACE HttpMethod::Trace
-#define PATCH HttpMethod::Patch
+static constexpr HttpMethod GET = HttpMethod::Get;
+static constexpr HttpMethod HEAD = HttpMethod::Head;
+static constexpr HttpMethod POST = HttpMethod::Post;
+static constexpr HttpMethod PUT = HttpMethod::Put;
+#ifndef DELETE // winnt.h
+static constexpr HttpMethod DELETE = HttpMethod::Delete;
+#endif
+static constexpr HttpMethod CONNECT = HttpMethod::Connect;
+static constexpr HttpMethod OPTIONS = HttpMethod::Options;
+static constexpr HttpMethod TRACE = HttpMethod::Trace;
+static constexpr HttpMethod PATCH = HttpMethod::Patch;
 
 }

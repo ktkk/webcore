@@ -4,15 +4,14 @@
 
 using namespace WebCore;
 
-void Router::add_route(HttpMethod method, std::string path,
-    Callback callback)
+void Router::add_route(const HttpMethod& method, const std::string& path, const Callback& callback)
 {
     m_routes.push_back({ method, path, callback });
 }
 
 void Router::handle_request(const Request& req, Response& res)
 {
-    for (auto& route : m_routes) {
+    for (const auto& route : m_routes) {
         if (route.method == req.get_method() && route.path == req.get_path()) {
             if (m_logger) {
                 std::stringstream log;
