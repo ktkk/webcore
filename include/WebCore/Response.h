@@ -1,8 +1,8 @@
 #pragma once
 
-#include <array>
 #include <string>
 #include <vector>
+#include <initializer_list>
 
 #if defined(_WIN32) || defined(WIN32)
 
@@ -21,7 +21,7 @@ class Response {
 public:
     void set_status(const HttpStatus& status) { m_status = status; }
     void add_header(const HttpHeader& header) { m_headers.push_back(header); }
-    void add_headers(const std::vector<HttpHeader>& headers);
+    void add_headers(const std::initializer_list<HttpHeader>& headers);
 
     void write(const std::string& data) { m_buffer += data; }
     void flush();

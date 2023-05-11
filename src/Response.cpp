@@ -16,11 +16,9 @@ static constexpr auto CRLF = "\r\n";
 
 using namespace WebCore;
 
-void Response::add_headers(const std::vector<HttpHeader>& headers)
+void Response::add_headers(const std::initializer_list<HttpHeader>& headers)
 {
-    for (const auto& header : headers) {
-        m_headers.push_back(header);
-    }
+    m_headers.insert(m_headers.end(), headers.begin(), headers.end());
 }
 
 void Response::flush()
