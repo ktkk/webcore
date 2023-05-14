@@ -6,22 +6,22 @@ using namespace WebCore;
 
 void Router::add_route(const HttpMethod& method, const std::string& path, const Callback& callback)
 {
-    m_routes.push_back({ method, path, callback });
+    m_routes.push_back(std::make_unique<Route>(method, path, callback));
 }
 
 void Router::handle_request(const Request& req, Response& res)
 {
     for (const auto& route : m_routes) {
-        if (route.method == req.get_method() && route.path == req.get_path()) {
+        if (route->m_method == req.get_method() && route->m_path == req.get_path()) {
             if (m_logger) {
                 std::stringstream log;
                 log << "Serving request ";
-                log << route.method << ", " << route.path;
+                log << route->m_method << ", " << route->m_path;
 
                 m_logger->get().info(log.str());
             }
 
-            route.callback(req, res);
+            route->m_callback(req, res);
 
             return;
         }

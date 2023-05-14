@@ -3,6 +3,7 @@
 #include <functional>
 #include <optional>
 #include <vector>
+#include <memory>
 
 #include "HttpMethod.h"
 #include "HttpStatus.h"
@@ -24,13 +25,20 @@ public:
 
 private:
     struct Route {
-        HttpMethod method;
-        std::string path;
-        Callback callback;
+        Route(const HttpMethod& method, const std::string& path, const Callback& callback)
+            : m_method(method)
+            , m_path(path)
+            , m_callback(callback)
+        {
+        }
+
+        HttpMethod m_method;
+        std::string m_path;
+        Callback m_callback;
     };
 
 private:
-    std::vector<Route> m_routes = {};
+    std::vector<std::unique_ptr<Route>> m_routes = {};
 
     std::optional<std::reference_wrapper<Utils::Logger>> m_logger = {};
 };
