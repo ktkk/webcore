@@ -5,7 +5,6 @@ WebCore is a work in progress. There is still a ton of stuff to do, including bu
 ## [App.cpp](./src/App.cpp)
 
 - Add additional configuration for HTTPS
-- Allow building on Windows by using the Windows API
 - Proper error handling and reporting
 - Use logging in as many places as possible
 
@@ -13,8 +12,6 @@ WebCore is a work in progress. There is still a ton of stuff to do, including bu
 
 - Color configuration
 - Timezone configuration
-- Logger output
-- Logger levels
 - Allow formatted messages
 
 ## [Router.cpp](./src/Router.cpp)
@@ -34,6 +31,6 @@ WebCore is a work in progress. There is still a ton of stuff to do, including bu
 - Allow streaming responses
 - Create header setter
 
-## [CMakeLists.txt](./CMakeLists.txt)
+## [Utils](./include/WebCore/Utils)
 
-- Create defines header
+- Add a ThreadPool and use it in the App to distribute workloads
