@@ -25,8 +25,9 @@ void App::register_routes()
     m_router.add_route(HttpMethod::Get, "/", [this](auto& req, auto& res) {
         m_logger.info("Made a GET request to the '/' endpoint.");
 
-        // Assume we're running inside the build/ directory
-        std::string path = "../example/index.html";
+        // Set the current path to the root path of WebCore
+        std::filesystem::current_path(PROJECT_ROOT_DIR);
+        std::string path = "./example/index.html";
 
         res.add_headers({
             { "Content-Type", "text/html" },

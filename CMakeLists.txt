@@ -87,5 +87,16 @@ foreach(test_src ${TESTS})
     )
 endforeach()
 
+get_filename_component(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}" ABSOLUTE)
+
 add_executable(example_WebCore ${EXAMPLE})
-target_link_libraries(example_WebCore WebCore)
+
+target_link_libraries(example_WebCore
+PRIVATE
+    WebCore
+)
+
+target_compile_definitions(example_WebCore
+PRIVATE
+    PROJECT_ROOT_DIR="${PROJECT_ROOT_DIR}"
+)
