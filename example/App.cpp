@@ -1,30 +1,8 @@
 #include "App.h"
 
-#include <chrono>
-#include <clocale>
-#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-
-std::string get_last_modified_time(const std::string& path)
-{
-    using namespace std::chrono;
-    using namespace std::filesystem;
-
-    auto last_modified_time = system_clock::to_time_t(time_point_cast<system_clock::duration>(last_write_time(path) - file_time_type::clock::now() + system_clock::now()));
-
-    std::string time;
-
-    std::string previous_locale = std::setlocale(LC_ALL, nullptr);
-
-    std::setlocale(LC_TIME, "en_US.utf-8");
-    time = std::asctime(std::localtime(&last_modified_time));
-
-    std::setlocale(LC_ALL, previous_locale.c_str());
-
-    return time;
-}
 
 App::App()
     : m_router()
@@ -52,7 +30,6 @@ void App::register_routes()
 
         res.add_headers({
             { "Content-Type", "text/html" },
-            { "Last-Modified", get_last_modified_time(path) },
         });
 
         std::ifstream file_stream { path };
