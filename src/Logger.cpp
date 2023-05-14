@@ -15,27 +15,8 @@ using namespace Utils;
 
 #define PREFIX(color, prefix, date) BOLD(BRACED(COLORED(color, prefix) << " " << date))
 
-static inline std::string trim(const std::string& s)
-{
-    // skip leading whitespace
-    auto start = s.begin();
-    while (start != s.end() && std::isspace(*start)) {
-        ++start;
-    }
-
-    // skip trailing whitespace
-    auto end = s.end();
-    do {
-        --end;
-    } while (end != start && std::isspace(*end));
-
-    return std::string { start, end + 1 };
-}
-
 static std::string get_current_time_localized(const std::string& locale)
 {
-    std::string time;
-
     using namespace std::chrono;
 
     const auto now = system_clock::now();
@@ -46,7 +27,7 @@ static std::string get_current_time_localized(const std::string& locale)
     ss.imbue(std::locale(locale));
     ss << local_now;
 
-    return trim(time);
+    return trim_copy(ss.str());
 }
 
 void Logger::info(const Logger::Message& message) const
